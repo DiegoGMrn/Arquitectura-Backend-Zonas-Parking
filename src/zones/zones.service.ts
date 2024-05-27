@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Empty, Zones } from './zones.pb';
-import { Metadata } from '@grpc/grpc-js';
+import { Zones } from './zones.pb';
 
 @Injectable()
 export class ZonesService {
@@ -8,8 +7,8 @@ export class ZonesService {
     const zone: Zones = {
       id: 1,
       name: 'Zona 1',
-      cant_estacionamientos_totales: '100',
-      cant_estacionamientos_ocupados: 50,
+      cantEstacionamientosTotales: 100,
+      cantEstacionamientosOcupados: 50,
     }
 
     return zone;

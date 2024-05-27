@@ -11,6 +11,6 @@ message Empty {}
 message Zones {
     int32 id = 1;
     string name = 2;
-    string cant_estacionamientos_totales = 3;
-    int32 cant_estacionamientos_ocupados = 4;
+    int32 cantEstacionamientosTotales = 3;
+    int32 cantEstacionamientosOcupados = 4;
 }
