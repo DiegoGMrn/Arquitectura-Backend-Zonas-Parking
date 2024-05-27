@@ -6,7 +6,7 @@ import { ZonesModule } from './zones/zones.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    /*TypeOrmModule.forRoot({
+    TypeOrmModule.forRoot({
       type: 'postgres',
         host: process.env.ZONAS_DB_HOST,
         port: Number(process.env.ZONAS_DB_PORT),
@@ -16,7 +16,7 @@ import { ZonesModule } from './zones/zones.module';
         synchronize: false,
         autoLoadEntities: true,
         useUTC: true,
-    }),*/
+    }),
     ZonesModule, 
   ],
   controllers: [],

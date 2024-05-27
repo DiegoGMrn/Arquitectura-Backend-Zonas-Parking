@@ -4,6 +4,7 @@ package zones;
 
 service ZonesService {
     rpc findAll (Empty) returns (Zones);
+    rpc create (inputCreateZone) return (google.protobuf.BoolValue)
 }
 
 message Empty {}
@@ -13,4 +14,10 @@ message Zones {
     string name = 2;
     int32 cantEstacionamientosTotales = 3;
     int32 cantEstacionamientosOcupados = 4;
+}
+
+message inputCreateZone {
+    string name = 1;
+    int32 cantEstacionamientosTotales = 2;
+    int32 cantEstacionamientosOcupados = 3;
 }
