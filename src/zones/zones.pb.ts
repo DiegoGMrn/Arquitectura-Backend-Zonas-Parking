@@ -15,3 +15,6 @@ export interface inputCreateZone {
 export interface ZonesServiceClient {
     findAll(request: Empty): Observable<Zones>;
 }
+export interface inputDeleteZone {
+    id: number;
+}
