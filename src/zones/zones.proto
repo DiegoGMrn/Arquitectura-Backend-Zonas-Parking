@@ -24,6 +24,10 @@ message inputCreateZone {
     int32 cantEstacionamientosOcupados = 3;
 }
 
+message CreateZoneResponse {
+    bool success = 1;
+}
+
 message inputDeleteZone {
     int32 id = 1;
 }

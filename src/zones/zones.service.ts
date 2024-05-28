@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { inputCreateZone, inputDeleteZone } from './zones.pb';
+import { CreateZoneResponse, inputCreateZone, inputDeleteZone } from './zones.pb';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Zones } from './entities/zones.entity';
 import { Repository } from 'typeorm';
@@ -17,13 +17,21 @@ export class ZonesService {
 
     return zone;
   }
-
+  /*
   public async create(zone: inputCreateZone): Promise<Boolean> {
     try {
       await this.zonesRepository.save(zone);
       return true;
     } catch (error) {
       return false;
+    }
+  }*/
+  public async create(zone: inputCreateZone): Promise<CreateZoneResponse> {
+    try {
+      await this.zonesRepository.save(zone);
+      return { success: true };
+    } catch (error) {
+      return { success: false };
     }
   }
 

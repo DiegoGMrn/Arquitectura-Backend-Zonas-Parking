@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { GrpcMethod} from '@nestjs/microservices';
 import { ZonesService } from './zones.service';
-import { Empty, Zones, inputCreateZone, inputDeleteZone } from './zones.pb';
+import { CreateZoneResponse, Empty, Zones, inputCreateZone, inputDeleteZone } from './zones.pb';
 
 @Controller()
 export class ZonesController {
@@ -13,10 +13,16 @@ export class ZonesController {
     console.log(response);
     return response;
   }
-
+  /*
   @GrpcMethod('ZonesService', 'create')
   create(zone: inputCreateZone): Promise<Boolean> {
+    console.log(zone)
     return this.zonesService.create(zone);
+  }*/
+  @GrpcMethod('ZonesService', 'createZone')
+  async create(zone: inputCreateZone): Promise<boolean> {
+    const response = await this.zonesService.create(zone);
+    return response.success; // Retorna el valor booleano de success
   }
 
   @GrpcMethod('ZonesService', 'delete')

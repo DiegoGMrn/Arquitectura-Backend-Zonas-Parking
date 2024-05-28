@@ -12,9 +12,16 @@ export interface inputCreateZone {
     cantEstacionamientosTotales: number;
     cantEstacionamientosOcupados: number;
 }
+
+export interface CreateZoneResponse {
+    success: boolean;
+  }
+  
 export interface ZonesServiceClient {
     findAll(request: Empty): Observable<Zones>;
+    create(request: inputCreateZone): Observable<CreateZoneResponse>;
 }
 export interface inputDeleteZone {
     id: number;
 }
+
