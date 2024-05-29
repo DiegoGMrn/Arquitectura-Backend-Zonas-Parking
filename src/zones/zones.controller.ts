@@ -13,17 +13,17 @@ export class ZonesController {
     console.log(response);
     return response;
   }
-  /*
+  
   @GrpcMethod('ZonesService', 'create')
-  create(zone: inputCreateZone): Promise<Boolean> {
-    console.log(zone)
-    return this.zonesService.create(zone);
-  }*/
-  @GrpcMethod('ZonesService', 'createZone')
+  async create(zone: inputCreateZone): Promise<CreateZoneResponse> {
+    const response = await this.zonesService.create(zone);
+    return response;
+  }
+  /*@GrpcMethod('ZonesService', 'createZone')
   async create(zone: inputCreateZone): Promise<boolean> {
     const response = await this.zonesService.create(zone);
-    return response.success; // Retorna el valor booleano de success
-  }
+    return response.success; 
+  }*/
 
   @GrpcMethod('ZonesService', 'delete')
   delete(zone: inputDeleteZone): Promise<Boolean> {

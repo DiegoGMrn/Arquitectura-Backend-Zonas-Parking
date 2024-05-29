@@ -14,7 +14,7 @@ import { Zones } from './zones/entities/zones.entity';
       username: process.env.ZONAS_DB_USERNAME,
       password: process.env.ZONAS_DB_PASSWORD,
       database: process.env.ZONAS_DB_DATABASE,
-      synchronize: false,
+      synchronize: true,
       autoLoadEntities: true,
       useUTC: true,
       entities: [Zones],

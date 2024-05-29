@@ -17,23 +17,30 @@ export class ZonesService {
 
     return zone;
   }
-  /*
-  public async create(zone: inputCreateZone): Promise<Boolean> {
+  
+  public async create(zone: inputCreateZone): Promise<CreateZoneResponse> {
     try {
       await this.zonesRepository.save(zone);
-      return true;
+      const response: CreateZoneResponse = {
+        success: true,
+      }
+      return response;
     } catch (error) {
-      return false;
+      console.log(error);
+      const response: CreateZoneResponse = {
+        success: false,
+      }
+      return response;
     }
-  }*/
-  public async create(zone: inputCreateZone): Promise<CreateZoneResponse> {
+  }
+  /*public async create(zone: inputCreateZone): Promise<CreateZoneResponse> {
     try {
       await this.zonesRepository.save(zone);
       return { success: true };
     } catch (error) {
       return { success: false };
     }
-  }
+  }*/
 
   public async delete(zone: inputDeleteZone): Promise<Boolean> {
     try {

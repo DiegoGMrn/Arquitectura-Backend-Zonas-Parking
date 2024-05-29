@@ -19,7 +19,7 @@ export interface CreateZoneResponse {
   
 export interface ZonesServiceClient {
     findAll(request: Empty): Observable<Zones>;
-    create(request: inputCreateZone): Observable<CreateZoneResponse>;
+    create(request: inputCreateZone): Observable<boolean>;
 }
 export interface inputDeleteZone {
     id: number;

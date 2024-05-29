@@ -6,7 +6,7 @@ import "google/protobuf/wrappers.proto";
 
 service ZonesService {
     rpc findAll (Empty) returns (Zones);
-    rpc create (inputCreateZone) returns (google.protobuf.BoolValue);
+    rpc create (inputCreateZone) returns (CreateZoneResponse);
 }
 
 message Empty {}
