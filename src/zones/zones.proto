@@ -7,6 +7,8 @@ import "google/protobuf/wrappers.proto";
 service ZonesService {
     rpc findAll (Empty) returns (Zones);
     rpc create (inputCreateZone) returns (CreateZoneResponse);
+    rpc UpdateAvailableSpots(UpdateAvailableSpotsRequest) returns (UpdateAvailableSpotsResponse);
+    rpc findOne (inputFindOne) returns (Zones);
 }
 
 message Empty {}
@@ -29,5 +31,17 @@ message CreateZoneResponse {
 }
 
 message inputDeleteZone {
+    int32 id = 1;
+}
+
+message UpdateAvailableSpotsRequest {
+  string zoneId = 1;
+}
+
+message UpdateAvailableSpotsResponse {
+  bool success = 1;
+}
+
+message inputFindOne {
     int32 id = 1;
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateZoneResponse, inputCreateZone, inputDeleteZone } from './zones.pb';
+import { CreateZoneResponse, UpdateAvailableSpotsRequest, UpdateAvailableSpotsResponse, inputCreateZone, inputDeleteZone, inputFindOne } from './zones.pb';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Zones } from './entities/zones.entity';
 import { Repository } from 'typeorm';
@@ -49,6 +49,42 @@ export class ZonesService {
     } catch (error) {
       return false;
     }
+  }
+
+  public async updateAvailableSpots(UpdateAvailableSpotsRequest: UpdateAvailableSpotsRequest): Promise<UpdateAvailableSpotsResponse> {
+    const queryRunner = this.zonesRepository.manager.connection.createQueryRunner();
+    
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const zone = await queryRunner.manager.findOne(Zones, { where: { id: UpdateAvailableSpotsRequest.zoneId }});
+      if (!zone || zone.cantEstacionamientosOcupados >= zone.cantEstacionamientosTotales) {
+        throw new Error('No available parking spots');
+      }
+
+      zone.cantEstacionamientosOcupados += 1;
+      await queryRunner.manager.save(zone);
+
+      await queryRunner.commitTransaction();
+      const response: UpdateAvailableSpotsResponse = {
+        success: true,
+      }
+      return response;
+    } catch (error) {
+      console.log(error);
+      await queryRunner.rollbackTransaction();
+      const response: UpdateAvailableSpotsResponse = {
+        success: false,
+      }
+      return response;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  public async findOne(idZone: inputFindOne): Promise<Zones> {
+    return this.zonesRepository.findOne({ where: { id: idZone.id }});
   }
 
 

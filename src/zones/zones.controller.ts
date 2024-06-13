@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { GrpcMethod} from '@nestjs/microservices';
 import { ZonesService } from './zones.service';
-import { CreateZoneResponse, Empty, Zones, inputCreateZone, inputDeleteZone } from './zones.pb';
+import { CreateZoneResponse, Empty, Zones, inputCreateZone, inputDeleteZone, inputFindOne } from './zones.pb';
 
 @Controller()
 export class ZonesController {
@@ -29,5 +29,16 @@ export class ZonesController {
   delete(zone: inputDeleteZone): Promise<Boolean> {
     return this.zonesService.delete(zone);
   }
+
+  @GrpcMethod('ZonesService', 'updateAvailableSpots')
+  updateAvailableSpots(data: any): Promise<any> {
+    return this.zonesService.updateAvailableSpots(data);
+  }
+
+  @GrpcMethod('ZonesService', 'findOne')
+  findOne(idZone: inputFindOne): Promise<Zones> {
+    return this.zonesService.findOne(idZone);
+  }
+
 
 }
