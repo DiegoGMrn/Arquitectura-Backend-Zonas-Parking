@@ -9,6 +9,6 @@ export class Zones {
     name: string;
     @Column()
     cantEstacionamientosTotales: number;
-    @Column()
+    @Column({default: 0})
     cantEstacionamientosOcupados: number;
 }

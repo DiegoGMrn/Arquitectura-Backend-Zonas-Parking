@@ -23,7 +23,6 @@ message Zones {
 message inputCreateZone {
     string name = 1;
     int32 cantEstacionamientosTotales = 2;
-    int32 cantEstacionamientosOcupados = 3;
 }
 
 message CreateZoneResponse {

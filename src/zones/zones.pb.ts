@@ -10,7 +10,6 @@ export interface Zones {
 export interface inputCreateZone {
     name: string;
     cantEstacionamientosTotales: number;
-    cantEstacionamientosOcupados: number;
 }
 
 export interface CreateZoneResponse {
