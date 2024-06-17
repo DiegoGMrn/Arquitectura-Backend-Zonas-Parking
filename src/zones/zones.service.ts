@@ -1,21 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateZoneResponse, UpdateAvailableSpotsRequest, UpdateAvailableSpotsResponse, inputCreateZone, inputDeleteZone, inputFindOne } from './zones.pb';
+import { CreateZoneResponse, UpdateAvailableSpotsRequest, UpdateAvailableSpotsResponse, arrayZones, inputCreateZone, inputDeleteZone, inputFindOne } from './zones.pb';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Zones } from './entities/zones.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 @Injectable()
 export class ZonesService {
   constructor(@InjectRepository(Zones) private readonly zonesRepository: Repository<Zones>) {}
-  public async findAll(): Promise<Zones> {
-    const zone: Zones = {
-      id: 1,
-      name: 'Zona 1',
-      cantEstacionamientosTotales: 100,
-      cantEstacionamientosOcupados: 50,
+  public async findAll(): Promise<arrayZones> {
+    const zones = await this.zonesRepository.find();
+    const response: arrayZones = {
+      zones: zones,
     }
+    return response;
 
-    return zone;
   }
   
   public async create(zone: inputCreateZone): Promise<CreateZoneResponse> {
@@ -85,6 +83,19 @@ export class ZonesService {
 
   public async findOne(idZone: inputFindOne): Promise<Zones> {
     return this.zonesRepository.findOne({ where: { id: idZone.id }});
+  }
+
+  public async findMultiple(zoneIds: number[]): Promise<arrayZones> {
+    const response = await this.zonesRepository.find({
+      where: {
+        id: In(zoneIds),
+      },
+    });
+    console.log(response);
+    const arrayZones: arrayZones = {
+      zones: response,
+    }
+    return arrayZones
   }
 
 

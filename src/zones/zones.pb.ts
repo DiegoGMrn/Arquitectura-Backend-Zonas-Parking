@@ -19,10 +19,15 @@ export interface inputFindOne {
     id: number;
 }
   
+export interface inputFindMultipleZones {
+    ids: number[];
+}
+
 export interface ZonesServiceClient {
-    findAll(request: Empty): Observable<Zones>;
+    findAll(request: Empty): Observable<arrayZones>;
     create(request: inputCreateZone): Observable<boolean>;
     findOne(request: inputFindOne): Observable<Zones>;
+    findMultiple(request: inputFindMultipleZones): Observable<arrayZones>;
 }
 export interface inputDeleteZone {
     id: number;
@@ -33,4 +38,6 @@ export interface UpdateAvailableSpotsRequest {
 export interface UpdateAvailableSpotsResponse {
     success: boolean;
 }
-
+export interface arrayZones {
+    zones: Zones[];
+}

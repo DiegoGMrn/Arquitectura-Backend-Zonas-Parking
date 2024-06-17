@@ -1,16 +1,15 @@
 import { Controller } from '@nestjs/common';
 import { GrpcMethod} from '@nestjs/microservices';
 import { ZonesService } from './zones.service';
-import { CreateZoneResponse, Empty, Zones, inputCreateZone, inputDeleteZone, inputFindOne } from './zones.pb';
+import { CreateZoneResponse, Empty, Zones, arrayZones, inputCreateZone, inputDeleteZone, inputFindMultipleZones, inputFindOne } from './zones.pb';
 
 @Controller()
 export class ZonesController {
   constructor(private readonly zonesService: ZonesService) {}
 
   @GrpcMethod('ZonesService', 'findAll')
-  findAll(_: Empty): Promise<Zones> {
-    const response = this.zonesService.findAll();
-    console.log(response);
+  async findAll(_: Empty): Promise<arrayZones> {
+    const response = await this.zonesService.findAll();
     return response;
   }
   
@@ -38,6 +37,12 @@ export class ZonesController {
   @GrpcMethod('ZonesService', 'findOne')
   findOne(idZone: inputFindOne): Promise<Zones> {
     return this.zonesService.findOne(idZone);
+  }
+
+  @GrpcMethod('ZonesService', 'findMultiple')
+  async findMultiple(data: inputFindMultipleZones): Promise<arrayZones> {
+    const response = await this.zonesService.findMultiple(data.ids);
+    return response;
   }
 
 
