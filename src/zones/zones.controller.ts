@@ -45,5 +45,10 @@ export class ZonesController {
     return response;
   }
 
+  @GrpcMethod('ZonesService', 'reduceReservedSpots')
+  reduceReservedSpots(data: any): Promise<any> {
+    return this.zonesService.reduceReservedSpots(data);
+  }
+
 
 }

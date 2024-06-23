@@ -98,5 +98,37 @@ export class ZonesService {
     return arrayZones
   }
 
+  public async reduceReservedSpots(data: any): Promise<any> {
+    const queryRunner = this.zonesRepository.manager.connection.createQueryRunner();
+    
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const zone = await queryRunner.manager.findOne(Zones, { where: { id: data.zoneId }});
+      if (!zone || zone.cantEstacionamientosOcupados <= 0) {
+        throw new Error('No parking spots to reduce');
+      }
+
+      zone.cantEstacionamientosOcupados -= 1;
+      await queryRunner.manager.save(zone);
+
+      await queryRunner.commitTransaction();
+      const response = {
+        success: true,
+      }
+      return response;
+    } catch (error) {
+      console.log(error);
+      await queryRunner.rollbackTransaction();
+      const response = {
+        success: false,
+      }
+      return response;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
 
 }
