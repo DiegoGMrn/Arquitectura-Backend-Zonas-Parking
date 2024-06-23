@@ -45,10 +45,12 @@ message inputDeleteZone {
 
 message UpdateAvailableSpotsRequest {
   string zoneId = 1;
+
 }
 
 message UpdateAvailableSpotsResponse {
   bool success = 1;
+  string message = 2;
 }
 
 message inputFindOne {

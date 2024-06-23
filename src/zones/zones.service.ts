@@ -57,6 +57,11 @@ export class ZonesService {
 
     try {
       const zone = await queryRunner.manager.findOne(Zones, { where: { id: UpdateAvailableSpotsRequest.zoneId }});
+      
+      if (!zone ) {
+        throw new Error('Zone not found');
+      }
+
       if (!zone || zone.cantEstacionamientosOcupados >= zone.cantEstacionamientosTotales) {
         throw new Error('No available parking spots');
       }
@@ -74,6 +79,7 @@ export class ZonesService {
       await queryRunner.rollbackTransaction();
       const response: UpdateAvailableSpotsResponse = {
         success: false,
+        message: error.message,
       }
       return response;
     } finally {
@@ -123,6 +129,7 @@ export class ZonesService {
       await queryRunner.rollbackTransaction();
       const response = {
         success: false,
+        message: error.message,
       }
       return response;
     } finally {

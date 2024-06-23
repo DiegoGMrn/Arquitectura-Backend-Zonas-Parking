@@ -37,6 +37,7 @@ export interface UpdateAvailableSpotsRequest {
 }
 export interface UpdateAvailableSpotsResponse {
     success: boolean;
+    message?: string;
 }
 export interface arrayZones {
     zones: Zones[];
