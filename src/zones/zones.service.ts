@@ -97,7 +97,6 @@ export class ZonesService {
         id: In(zoneIds),
       },
     });
-    console.log(response);
     const arrayZones: arrayZones = {
       zones: response,
     }

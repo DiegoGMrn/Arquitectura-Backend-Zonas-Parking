@@ -18,11 +18,6 @@ export class ZonesController {
     const response = await this.zonesService.create(zone);
     return response;
   }
-  /*@GrpcMethod('ZonesService', 'createZone')
-  async create(zone: inputCreateZone): Promise<boolean> {
-    const response = await this.zonesService.create(zone);
-    return response.success; 
-  }*/
 
   @GrpcMethod('ZonesService', 'delete')
   delete(zone: inputDeleteZone): Promise<Boolean> {
