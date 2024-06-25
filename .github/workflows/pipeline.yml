@@ -28,6 +28,12 @@ jobs:
           npm run build
           npm test
 
+      - name: Coverages
+        run: |
+          npm run coverage
+
+
+
 
       
 
